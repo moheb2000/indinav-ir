@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>Title</h1>
+      <h1>عنوان سایت</h1>
     </>
   )
 }
