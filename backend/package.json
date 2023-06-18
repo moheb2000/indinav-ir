@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
+    "deploy": "liara deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohammad Ebrahimi",
