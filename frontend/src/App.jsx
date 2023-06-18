@@ -1,8 +1,14 @@
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <>
-      <h1>عنوان سایت</h1>
-    </>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <Home />
+      <Footer />
+    </div>
   )
 }
 
