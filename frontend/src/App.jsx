@@ -1,14 +1,37 @@
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./pages/Layout";
+import StaticPage from "./pages/StaticPage";
+import Contact from "./pages/Contact";
+import Error from "./pages/Error";
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: '/page/:slug',
+        element: <StaticPage />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <div className="flex flex-col h-screen">
-      <Navbar />
-      <Home />
-      <Footer />
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
 
