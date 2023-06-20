@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [hideMenu, setHideMenu] = useState(true);
@@ -7,6 +7,11 @@ function Navbar() {
   const toggleMenu = () => {
     setHideMenu(!hideMenu);
   };
+
+  const location = useLocation();
+  useEffect(() => {
+    setHideMenu(true);
+  }, [location.key]);
 
   return (
     <div>
@@ -26,9 +31,9 @@ function Navbar() {
             </div>
             <div className={`sm:flex flex-col sm:flex-row text-center items-center text-gray-600 ${hideMenu ? "hidden" : "flex"}`}>
               <ul className="flex flex-col sm:flex-row">
-                <Link to={''}><li className="font-semibold text-purple-600 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">صفحه اصلی</li></Link>
-                <Link to={'page/about'}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">درباره من</li></Link>
-                <Link to={'contact'}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">تماس با من</li></Link>
+                <NavLink to={''} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">صفحه اصلی</li></NavLink>
+                <NavLink to={'page/about'} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">درباره من</li></NavLink>
+                <NavLink to={'contact'} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">تماس با من</li></NavLink>
               </ul>
               <div className="w-6 sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 cursor-pointer mt-4 sm:mt-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
