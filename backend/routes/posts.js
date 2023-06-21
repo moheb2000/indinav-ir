@@ -6,7 +6,7 @@ const posts = express.Router();
 
 posts.get('/', (req, res) => {
   const { page } = req.query;
-  models.post.findAll({
+  models.post.findAndCountAll({
     offset: 6 * ((page || 1) - 1),
     limit: 6,
     order: [
