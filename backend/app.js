@@ -6,7 +6,8 @@ const sequelize = require('./models/db');
 const posts = require('./routes/posts');
 const pages = require('./routes/pages');
 
-const _posts = require('./models/test-data.json')
+const _posts = require('./models/test-data.json');
+const _pages = require('./models/test-data-pages.json');
 
 const app = express();
 const port = 3000;
@@ -33,6 +34,7 @@ sequelize.sync({
     displayName: 'My Name',
   }).then(() => {
     sequelize.models.post.bulkCreate(_posts, { validate: true });
+    sequelize.models.page.bulkCreate(_pages, { validate: true });
   });
 }).then(() => {
   app.listen(port, () => {
