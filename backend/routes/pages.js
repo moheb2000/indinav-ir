@@ -5,7 +5,7 @@ const { models } = require('../models/db');
 const pages = express.Router();
 
 pages.get('/', (_req, res) => {
-  models.page.findAndCountAll({
+  models.page.findAll({
     order: [
       ['title', 'DESC'],
     ],

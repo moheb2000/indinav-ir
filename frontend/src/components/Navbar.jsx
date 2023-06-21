@@ -13,6 +13,28 @@ function Navbar() {
     setHideMenu(true);
   }, [location.key]);
 
+  const [ pages, setPages ] = useState([]);
+
+  useEffect(() => {
+    // Remove all of ignore for production
+    let ignore = false;
+
+    const fetchPages = async () => {
+      const response = await fetch(`http://localhost:3000/api/pages`);
+      const json = await response.json();
+
+      if(response.ok && !ignore) {
+        setPages(json);
+      }
+    }
+
+    fetchPages();
+
+    return () => {
+      ignore = true;
+    }
+  }, []);
+
   return (
     <div>
       <nav className="bg-white">
@@ -32,7 +54,9 @@ function Navbar() {
             <div className={`sm:flex flex-col sm:flex-row text-center items-center text-gray-600 ${hideMenu ? "hidden" : "flex"}`}>
               <ul className="flex flex-col sm:flex-row">
                 <NavLink to={''} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">صفحه اصلی</li></NavLink>
-                <NavLink to={'page/about'} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">درباره من</li></NavLink>
+                {pages && pages.map(page => (
+                  <NavLink key={page.id} to={`page/${page.slug}`} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">{page.title}</li></NavLink>
+                ))}
                 <NavLink to={'contact'} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">تماس با من</li></NavLink>
               </ul>
               <div className="w-6 sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 cursor-pointer mt-4 sm:mt-0">
