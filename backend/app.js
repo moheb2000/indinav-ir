@@ -1,5 +1,5 @@
 const express = require('express');
-const { Sequelize } = require('sequelize');
+const sequelize = require('./models/db');
 
 const posts = require('./routes/posts');
 const pages = require('./routes/pages');
@@ -16,55 +16,15 @@ app.get('/', (_req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './db/db.sqlite',
-});
-
-const makeCategory = require('./models/Category');
-const Category = makeCategory(sequelize);
-
-const makeTag = require('./models/Tag');
-const Tag = makeTag(sequelize);
-
-const makeAuther = require('./models/Auther');
-const Auther = makeAuther(sequelize);
-
-const makePage = require('./models/Page');
-const Page = makePage(sequelize);
-Auther.hasMany(Page, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
-Page.belongsTo(Auther);
-
-const makePost = require('./models/Post');
-const Post = makePost(sequelize);
-Auther.hasMany(Post, {
-  foreignKey: {
-    allowNull: false,
-  },
-});
-Post.belongsTo(Auther);
-
-const PostTags = sequelize.define('PostTags', {}, { timestamps: false });
-Post.belongsToMany(Tag, { through: PostTags });
-Tag.belongsToMany(Post, { through: PostTags });
-
-const PostCategories = sequelize.define('PostCategories', {}, { timestamps: false });
-Post.belongsToMany(Category, { through: PostCategories });
-Category.belongsToMany(Post, { through: PostCategories });
-
 sequelize.sync({
   force: true,
 }).then(() => {
-  Auther.create({
+  sequelize.models.Auther.create({
     email: 'mytestemail@gmail.com',
     password: 'Password',
     displayName: 'My Name',
   }).then(() => {
-    Post.create({
+    sequelize.models.Post.create({
       slug: 'hello',
       title: 'hello',
       body: 'hello',
@@ -78,7 +38,3 @@ sequelize.sync({
 }).catch(err => {
   console.log(err);
 });
-
-module.exports = {
-  sequelize,
-};
