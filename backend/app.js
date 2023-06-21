@@ -1,11 +1,17 @@
 const express = require('express');
-const sequelize = require('./models/db');
+const bodyParser = require('body-parser');
 
+const sequelize = require('./models/db');
 const posts = require('./routes/posts');
 const pages = require('./routes/pages');
 
+const _posts = require('./models/test-data.json')
+
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/assets', express.static(__dirname + '/dist/assets'));
 
@@ -19,17 +25,12 @@ app.get('/', (_req, res) => {
 sequelize.sync({
   force: true,
 }).then(() => {
-  sequelize.models.Auther.create({
+  sequelize.models.auther.create({
     email: 'mytestemail@gmail.com',
     password: 'Password',
     displayName: 'My Name',
   }).then(() => {
-    sequelize.models.Post.create({
-      slug: 'hello',
-      title: 'hello',
-      body: 'hello',
-      AutherId: 1,
-    });
+    sequelize.models.post.bulkCreate(_posts, { validate: true });
   });
 }).then(() => {
   app.listen(port, () => {

@@ -1,25 +1,19 @@
 function applyExtraSetup(sequelize) {
-	const { Category, Tag, Auther, Page, Post } = sequelize.models;
+	const { auther, page, post } = sequelize.models;
 
-	Auther.hasMany(Page, {
+	auther.hasMany(page, {
     foreignKey: {
       allowNull: false,
     },
   });
-  Page.belongsTo(Auther);
+  page.belongsTo(auther);
 
-  Auther.hasMany(Post, {
+  auther.hasMany(post, {
     foreignKey: {
       allowNull: false,
     },
   });
-  Post.belongsTo(Auther);
-
-  Post.belongsToMany(Tag, { through: 'PostTags' });
-  Tag.belongsToMany(Post, { through: 'PostTags' });
-
-  Post.belongsToMany(Category, { through: 'PostCategories' });
-  Category.belongsToMany(Post, { through: 'PostCategories' });
+  post.belongsTo(auther);
 }
 
 module.exports = { applyExtraSetup };

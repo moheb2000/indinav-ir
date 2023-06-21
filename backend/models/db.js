@@ -11,8 +11,6 @@ const sequelize = new Sequelize({
 
 const modelDefiners = [
 	require('./auther.model'),
-	require('./category.model'),
-	require('./tag.model'),
 	require('./page.model'),
 	require('./post.model'),
 ];
