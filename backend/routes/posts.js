@@ -38,8 +38,11 @@ posts.post('/', (req, res) => {
   });
 });
 
-posts.get('/:id', (req, res) => {
-  models.post.findByPk(req.params.id, {
+posts.get('/:slug', (req, res) => {
+  models.post.findOne({
+    where: {
+      slug: req.params.slug,
+    },
     attributes: {exclude: ['autherId']},
     include: [
       {

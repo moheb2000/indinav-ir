@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Post from '../components/Post';
 
-function StaticPage() {
-  const [ page, setPage ] = useState(null);
+function StaticPost() {
+  const [ post, setPost ] = useState(null);
   const [isLouding, setIsLoading] = useState(false);
 
   const location = useLocation();
@@ -14,11 +14,11 @@ function StaticPage() {
 
     const fetchPosts = async () => {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/api/pages/${location.pathname.split('/')[location.pathname.split('/').length - 1]}`);
+      const response = await fetch(`http://localhost:3000/api/posts/${location.pathname.split('/')[location.pathname.split('/').length - 1]}`);
       const json = await response.json();
 
       if(response.ok && !ignore) {
-        setPage(json);
+        setPost(json);
         setIsLoading(false);
       }
     }
@@ -32,9 +32,9 @@ function StaticPage() {
 
   return (
     <div>
-      <Post post={page} />
+      <Post post={post} />
     </div>
   );
 }
 
-export default StaticPage;
+export default StaticPost;
