@@ -32,7 +32,11 @@ function StaticPage() {
 
   return (
     <div>
-      <Post post={page} />
+      {!isLouding ? (<Post post={page} />) : (
+        <div className="flex justify-center mt-6">
+          <div className="bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-full border-2 border-purple-600">لطفا صبر کنید...</div>
+        </div>
+      )}
     </div>
   );
 }

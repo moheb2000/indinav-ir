@@ -1,6 +1,7 @@
 import persianDate from "persian-date";
 import { Remarkable } from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
+import PropTypes from "prop-types";
 
 function Post({ post }) {
   const md = new Remarkable();
@@ -58,5 +59,9 @@ function Post({ post }) {
     </div>
   );
 }
+
+Post.propTypes = {
+  post: PropTypes.any,
+};
 
 export default Post;

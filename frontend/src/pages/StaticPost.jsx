@@ -32,7 +32,11 @@ function StaticPost() {
 
   return (
     <div>
-      <Post post={post} />
+      {!isLouding ? (<Post post={post} />) : (
+        <div className="flex justify-center mt-6">
+          <div className="bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-full border-2 border-purple-600">لطفا صبر کنید...</div>
+        </div>
+      )}
     </div>
   );
 }
