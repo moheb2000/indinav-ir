@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { models } = require('../models/db');
+const authenticate = require('../middlewares/authenticate');
 
 const pages = express.Router();
 
@@ -19,10 +20,10 @@ pages.get('/', (_req, res) => {
   });
 });
 
-pages.post('/', (req, res) => {
-  const { id, ...body } = req.body;
+pages.post('/', authenticate, (req, res) => {
+  const { id, autherId, ...body } = req.body;
 
-  models.page.create(body).then(() => {
+  models.page.create({ autherId: req.autherId, ...body }).then(() => {
     return res.status(201).send();
   }).catch(err => {
     return res.status(400).json({ error: err.message });
@@ -50,11 +51,11 @@ pages.get('/:slug', (req, res) => {
   });
 });
 
-pages.patch('/:id', (req, res) => {
+pages.patch('/:slug', authenticate, (req, res) => {
   const { id, autherId, ...body } = req.body;
 
   models.page.update(body, {
-    where: { id: req.params.id },
+    where: { slug: req.params.slug },
   }).then(() => {
     return res.status(201).send();
   }).catch(err => {
@@ -62,10 +63,10 @@ pages.patch('/:id', (req, res) => {
   });
 });
 
-pages.delete('/:id', (req, res) => {
+pages.delete('/:slug', authenticate, (req, res) => {
   models.page.destroy({
     where: {
-      id: req.params.id,
+      slug: req.params.slug,
     }
   }).then(() => {
     return res.status(204).send();

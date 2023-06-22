@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
-function Post({ post }) {
+function Post({ post, type }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -48,7 +48,7 @@ function Post({ post }) {
   
       setIsLoading(true);
 
-      const response = await fetch(`http://localhost:3000/api/posts/${post.slug}`, {
+      const response = await fetch(`http://localhost:3000/api/${type}/${post.slug}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ token: localStorage.getItem('token') }),
@@ -74,7 +74,7 @@ function Post({ post }) {
               <h2>{post && post.title}</h2>
               <div className={isLoggedIn ? "" : "hidden"}>
                 <div className="flex">
-                  <Link to={post && `/post/${post.slug}/edit`}>
+                  <Link to={post && `/${type === 'posts' ? 'post' : 'page'}/${post.slug}/edit`}>
                     <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
                       <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
