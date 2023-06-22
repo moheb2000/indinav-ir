@@ -16,15 +16,15 @@ authers.post('/checklogin', (req, res) => {
 });
 
 authers.post('/login', (req, res) => {
-  if (!req.body.email) return res.status(400).json({ error: 'Email parameter required!' });
-  if (!req.body.password) return res.status(400).json({ error: 'Password parameter required!' });
+  if (!req.body.email) return res.status(400).json({ error: 'وارد کردن ایمیل الزامی است!' });
+  if (!req.body.password) return res.status(400).json({ error: 'وارد کردن گذرواژه الزامی است!' });
 
   models.auther.findOne({
     where: {
       email: req.body.email,
     },
   }).then(auther => {
-    if (auther === null) return res.json({ error: 'Wrong email!' });
+    if (auther === null) return res.status(400).json({ error: 'ایمیل وارد شده اشتباه است!' });
     bcrypt.compare(req.body.password, auther.password, (err, result) => {
       if (err) {
         console.log(`[ERROR]: ${err.message}`);
@@ -37,7 +37,7 @@ authers.post('/login', (req, res) => {
         res.cookie('token', token, { httpOnly: true });
         return res.json({ token });
       } else {
-        return res.status(400).json({ error: 'Wrong password!' });
+        return res.status(400).json({ error: 'گذرواژه وارد شده اشتباه است!' });
       }
     });
   }).catch(err => {

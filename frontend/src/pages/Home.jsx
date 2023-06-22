@@ -6,6 +6,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const [isLouding, setIsLoading] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // Remove all of ignore for production
@@ -30,6 +31,23 @@ function Home() {
     }
   }, [ page ]);
 
+  useEffect(() => {
+    const fetchIsLoggedIn = async () => {
+      const response = await fetch(`http://localhost:3000/api/authers/checklogin`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ token: localStorage.getItem('token') }),
+      });
+      const json = await response.json();
+
+      if(response.ok) {
+        setIsLoggedIn(json.verify || false);
+      }
+    }
+
+    fetchIsLoggedIn();
+  }, []);
+
   const loadMorePosts = () => {
     if (!isLouding) {
       setPage(page + 1);
@@ -42,13 +60,15 @@ function Home() {
         <div>
           <div className="flex justify-between items-center font-semibold text-xl border-b-2 border-gray-200 pb-2 mb-6 text-gray-600">
             <h2>مطالب منتشر شده</h2>
-            <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-plus" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M9 12h6"></path>
-                <path d="M12 9v6"></path>
-                <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
-              </svg>
+            <div className={isLoggedIn ? "" : "hidden"}>
+              <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-plus" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M9 12h6"></path>
+                  <path d="M12 9v6"></path>
+                  <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
+                </svg>
+              </div>
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-10">

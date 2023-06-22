@@ -5,6 +5,7 @@ import StaticPage from "./pages/StaticPage";
 import StaticPost from "./pages/StaticPost";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      {
+        path: '/login',
+        element: <Login />
       },
       {
         path: '/page/:slug',
