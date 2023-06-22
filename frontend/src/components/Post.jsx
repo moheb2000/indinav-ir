@@ -3,9 +3,13 @@ import { Remarkable } from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 
 function Post({ post }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState('');
 
   const md = new Remarkable();
   md.renderer = new RemarkableReactRenderer();
@@ -36,24 +40,51 @@ function Post({ post }) {
     return persianTime;
   }
 
+  const deletePost = async () => {
+    const isVerify = confirm('آیا مطمئن هستید؟');
+    
+    if(isVerify) {
+      if (isLoading) return;
+  
+      setIsLoading(true);
+
+      const response = await fetch(`http://localhost:3000/api/posts/${post.slug}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ token: localStorage.getItem('token') }),
+      });
+
+      if(response.ok) {
+        setIsLoading(false);
+        setRedirect(true);
+      } else {
+        const json = await response.json();
+        setError(json);
+      }
+    }
+  }
+
   return (
     <div className="flex-grow flex justify-center">
       <main className="max-w-5xl w-full px-6 sm:px-16 pt-16 pb-10">
+      {redirect ? <Navigate to={'/'} /> : null}
         <div>
           <article>
             <div className="flex justify-between items-center font-semibold text-2xl pb-2 mb-1 text-gray-600">
               <h2>{post && post.title}</h2>
               <div className={isLoggedIn ? "" : "hidden"}>
                 <div className="flex">
-                  <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
-                      <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
-                      <path d="M16 5l3 3"></path>
-                    </svg>
-                  </div>
-                  <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mr-4">
+                  <Link to={post && `/post/${post.slug}/edit`}>
+                    <div className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                        <path d="M16 5l3 3"></path>
+                      </svg>
+                    </div>
+                  </Link>
+                  <div onClick={deletePost} className="w-5 cursor-pointer hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                       <path d="M4 7l16 0"></path>

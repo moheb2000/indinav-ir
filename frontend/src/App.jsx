@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import Login from "./pages/Login";
 import AddPost from "./pages/AddPost";
+import ModifyPost from "./pages/ModifyPost";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/post/:slug',
         element: <StaticPost />
+      },
+      {
+        path: '/post/:slug/edit',
+        element: <ModifyPost />
       },
       {
         path: '/post/add',

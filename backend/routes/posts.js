@@ -59,11 +59,11 @@ posts.get('/:slug', (req, res) => {
   });
 });
 
-posts.patch('/:id', authenticate, (req, res) => {
+posts.patch('/:slug', authenticate, (req, res) => {
   const { id, autherId, ...body } = req.body;
 
   models.post.update(body, {
-    where: { id: req.params.id },
+    where: { slug: req.params.slug },
   }).then(() => {
     return res.status(201).send();
   }).catch(err => {
@@ -71,10 +71,10 @@ posts.patch('/:id', authenticate, (req, res) => {
   });
 });
 
-posts.delete('/:id', authenticate, (req, res) => {
+posts.delete('/:slug', authenticate, (req, res) => {
   models.post.destroy({
     where: {
-      id: req.params.id,
+      slug: req.params.slug,
     }
   }).then(() => {
     return res.status(204).send();

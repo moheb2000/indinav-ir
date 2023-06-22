@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Remarkable } from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
 
-function EditPost() {
+function EditPost({ type, method, slug }) {
   const [postTitle, setPostTitle] = useState('')
   const [postSlug, setPostSlug] = useState('')
   const [postBody, setPostBody] = useState('مطلب شما');
@@ -15,14 +15,30 @@ function EditPost() {
   const md = new Remarkable();
   md.renderer = new RemarkableReactRenderer();
 
+  useEffect(() => {
+    if (method === 'PATCH') {
+      const fetchEditPost = async () => {
+        const response = await fetch(`http://localhost:3000/api/${type}/${slug}`);
+        const json = await response.json();
+  
+        if(response.ok) {
+          setPostTitle(json.title);
+          setPostBody(json.body);
+          setPostSlug(json.slug);
+        }
+      }
+  
+      fetchEditPost();
+    }
+  }, [ method, slug, type ]);
 
   const handleSubmit = async () => {
     if (isLoading) return;
   
     setIsLoading(true);
 
-    const response = await fetch(`http://localhost:3000/api/posts`, {
-        method: 'POST',
+    const response = await fetch(`http://localhost:3000/api/${type}/${slug}`, {
+        method: method,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           title: postTitle,
@@ -57,8 +73,8 @@ function EditPost() {
         {redirect ? <Navigate to={'/'} /> : null}
         <div>
           <form>
-            <input onChange={(t) => setPostTitle(t.target.value)} className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 mb-4 text-gray-700" type="text" placeholder="عنوان مطلب" />
-            <input onChange={(s) => setPostSlug(s.target.value)} dir="ltr" className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 text-left mb-1 text-gray-700" type="text" placeholder="slug" />
+            <input onChange={(t) => setPostTitle(t.target.value)} className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 mb-4 text-gray-700" type="text" placeholder="عنوان مطلب" value={postTitle} />
+            <input onChange={(s) => setPostSlug(s.target.value)} dir="ltr" className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 text-left mb-1 text-gray-700" type="text" placeholder="slug" value={postSlug} />
             <div className="flex justify-between items-center font-semibold text-2xl pb-2 mb-1 text-gray-600">
               <h2></h2>
                 <div className="flex">
