@@ -8,7 +8,7 @@ const authers = express.Router();
 
 authers.post('/checklogin', (req, res) => {
   try {
-    const decoded = jwt.verify(req.body.token, 'hello');
+    const decoded = jwt.verify(req.body.token, process.env.JWT_SECRET);
     return res.json({ verify: true });
   } catch(err) {
     return res.json({ verify: false });
@@ -33,7 +33,7 @@ authers.post('/login', (req, res) => {
       }
 
       if (result) {
-        const token = jwt.sign({ autherId: auther.id }, 'hello', { expiresIn: '3d' });
+        const token = jwt.sign({ autherId: auther.id }, process.env.JWT_SECRET, { expiresIn: '3d' });
         res.cookie('token', token, { httpOnly: true });
         return res.json({ token });
       } else {

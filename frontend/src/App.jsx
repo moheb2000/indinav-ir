@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import AddPost from "./pages/AddPost";
 import ModifyPost from "./pages/ModifyPost";
 import ModifyPage from "./pages/ModifyPage";
+import AddPage from "./pages/AddPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/page/:slug/edit',
         element: <ModifyPage />
+      },
+      {
+        path: '/page/add',
+        element: <AddPage />
       },
       {
         path: '/contact',

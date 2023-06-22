@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import coverImage from '../assets/cover.jpg';
+// import coverImage from '../assets/cover.jpg';
 import persianDate from 'persian-date';
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ function PostCard({ post }) {
 
   return (
     <div className="bg-white shadow rounded overflow-hidden">
-      <img src={coverImage} alt="cover" className='block w-full h-36 object-cover' />
+      {/* <img src={coverImage} alt="cover" className='block w-full h-36 object-cover' /> */}
       <div className='p-6'>
         <Link to={`/post/${post.slug}`}><h3 className="text-lg font-semibold mb-3 text-gray-600 hover:text-purple-600 transition ease-out duration-300">{post.title}</h3></Link>
         <p className="text-justify text-gray-500">{post.body.substring(0, 150) + '...'}</p>

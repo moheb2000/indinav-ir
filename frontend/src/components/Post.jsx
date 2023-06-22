@@ -16,7 +16,7 @@ function Post({ post, type }) {
 
   useEffect(() => {
     const fetchIsLoggedIn = async () => {
-      const response = await fetch(`http://localhost:3000/api/authers/checklogin`, {
+      const response = await fetch(`/api/authers/checklogin`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ token: localStorage.getItem('token') }),
@@ -48,7 +48,7 @@ function Post({ post, type }) {
   
       setIsLoading(true);
 
-      const response = await fetch(`http://localhost:3000/api/${type}/${post.slug}`, {
+      const response = await fetch(`/api/${type}/${post.slug}`, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ token: localStorage.getItem('token') }),
@@ -137,6 +137,7 @@ function Post({ post, type }) {
 
 Post.propTypes = {
   post: PropTypes.any,
+  type: PropTypes.any,
 };
 
 export default Post;

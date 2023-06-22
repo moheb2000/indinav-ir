@@ -15,7 +15,7 @@ function Home() {
 
     const fetchPosts = async () => {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/api/posts?page=${page}`);
+      const response = await fetch(`/api/posts?page=${page}`);
       const json = await response.json();
 
       if(response.ok && !ignore) {
@@ -34,7 +34,7 @@ function Home() {
 
   useEffect(() => {
     const fetchIsLoggedIn = async () => {
-      const response = await fetch(`http://localhost:3000/api/authers/checklogin`, {
+      const response = await fetch(`/api/authers/checklogin`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ token: localStorage.getItem('token') }),

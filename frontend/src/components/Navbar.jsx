@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [hideMenu, setHideMenu] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setHideMenu(!hideMenu);
@@ -20,7 +21,7 @@ function Navbar() {
     let ignore = false;
 
     const fetchPages = async () => {
-      const response = await fetch(`http://localhost:3000/api/pages`);
+      const response = await fetch(`/api/pages`);
       const json = await response.json();
 
       if(response.ok && !ignore) {
@@ -33,7 +34,25 @@ function Navbar() {
     return () => {
       ignore = true;
     }
+  }, [location.key]);
+
+  useEffect(() => {
+    const fetchIsLoggedIn = async () => {
+      const response = await fetch(`/api/authers/checklogin`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ token: localStorage.getItem('token') }),
+      });
+      const json = await response.json();
+
+      if(response.ok) {
+        setIsLoggedIn(json.verify || false);
+      }
+    }
+
+    fetchIsLoggedIn();
   }, []);
+
 
   return (
     <div>
@@ -59,6 +78,18 @@ function Navbar() {
                 ))}
                 <NavLink to={'contact'} className={({ isActive }) => isActive ? "text-purple-600 font-semibold" : ""}><li className="sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 mt-4 sm:mt-0">تماس با من</li></NavLink>
               </ul>
+              <div className={isLoggedIn ? "" : "hidden"}>
+                <Link to={'/page/add'}>
+                  <div className="w-6 sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 cursor-pointer mt-4 sm:mt-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-plus" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M9 12h6"></path>
+                      <path d="M12 9v6"></path>
+                      <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"></path>
+                    </svg>
+                  </div>
+                </Link>
+              </div>
               <div className="w-6 sm:mr-10 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300 cursor-pointer mt-4 sm:mt-0">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

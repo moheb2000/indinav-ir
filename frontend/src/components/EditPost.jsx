@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Remarkable } from 'remarkable';
 import RemarkableReactRenderer from 'remarkable-react';
+import PropTypes from "prop-types";
 
 function EditPost({ type, method, slug }) {
   const [postTitle, setPostTitle] = useState('')
@@ -18,7 +19,7 @@ function EditPost({ type, method, slug }) {
   useEffect(() => {
     if (method === 'PATCH') {
       const fetchEditPost = async () => {
-        const response = await fetch(`http://localhost:3000/api/${type}/${slug}`);
+        const response = await fetch(`/api/${type}/${slug}`);
         const json = await response.json();
   
         if(response.ok) {
@@ -37,7 +38,7 @@ function EditPost({ type, method, slug }) {
   
     setIsLoading(true);
 
-    const response = await fetch(`http://localhost:3000/api/${type}/${slug}`, {
+    const response = await fetch(`/api/${type}/${slug}`, {
         method: method,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -107,5 +108,11 @@ function EditPost({ type, method, slug }) {
     </div>
   );
 }
+
+EditPost.propTypes = {
+  type: PropTypes.any,
+  method: PropTypes.any,
+  slug: PropTypes.any,
+};
 
 export default EditPost;

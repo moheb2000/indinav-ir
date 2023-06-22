@@ -14,7 +14,7 @@ function StaticPage() {
 
     const fetchPosts = async () => {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/api/pages/${location.pathname.split('/')[location.pathname.split('/').length - 1]}`);
+      const response = await fetch(`/api/pages/${location.pathname.split('/')[location.pathname.split('/').length - 1]}`);
       const json = await response.json();
 
       if(response.ok && !ignore) {

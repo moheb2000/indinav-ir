@@ -15,7 +15,7 @@ function Login() {
     setIsLoading(true);
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:3000/api/authers/login`, {
+    const response = await fetch(`/api/authers/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
