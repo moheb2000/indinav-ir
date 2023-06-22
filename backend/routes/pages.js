@@ -11,11 +11,11 @@ pages.get('/', (_req, res) => {
     ],
     attributes: {exclude: ['autherId', 'body']},
   }).then(pages => {
-    res.json(pages);
+    return res.json(pages);
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 
@@ -23,9 +23,9 @@ pages.post('/', (req, res) => {
   const { id, ...body } = req.body;
 
   models.page.create(body).then(() => {
-    res.status(201).send();
+    return res.status(201).send();
   }).catch(err => {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   });
 });
 
@@ -42,11 +42,11 @@ pages.get('/:slug', (req, res) => {
       },
     ],
   }).then(page => {
-    res.json(page);
+    return res.json(page);
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 
@@ -56,9 +56,9 @@ pages.patch('/:id', (req, res) => {
   models.page.update(body, {
     where: { id: req.params.id },
   }).then(() => {
-    res.status(201).send();
+    return res.status(201).send();
   }).catch(err => {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   });
 });
 
@@ -68,11 +68,11 @@ pages.delete('/:id', (req, res) => {
       id: req.params.id,
     }
   }).then(() => {
-    res.status(204).send();
+    return res.status(204).send();
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 

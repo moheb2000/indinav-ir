@@ -20,11 +20,11 @@ posts.get('/', (req, res) => {
       },
     ],
   }).then(posts => {
-    res.json(posts);
+    return res.json(posts);
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 
@@ -32,9 +32,9 @@ posts.post('/', (req, res) => {
   const { id, ...body } = req.body;
 
   models.post.create(body).then(() => {
-    res.status(201).send();
+    return res.status(201).send();
   }).catch(err => {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   });
 });
 
@@ -51,11 +51,11 @@ posts.get('/:slug', (req, res) => {
       },
     ],
   }).then(post => {
-    res.json(post);
+    return res.json(post);
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 
@@ -65,9 +65,9 @@ posts.patch('/:id', (req, res) => {
   models.post.update(body, {
     where: { id: req.params.id },
   }).then(() => {
-    res.status(201).send();
+    return res.status(201).send();
   }).catch(err => {
-    res.status(400).json({ error: err.message });
+    return res.status(400).json({ error: err.message });
   });
 });
 
@@ -77,11 +77,11 @@ posts.delete('/:id', (req, res) => {
       id: req.params.id,
     }
   }).then(() => {
-    res.status(204).send();
+    return res.status(204).send();
   }).catch(err => {
     console.log(`[ERROR]: ${err.message}`);
 
-    res.status(503).json({ error: 'Service unavailable!' });
+    return res.status(503).json({ error: 'Service unavailable!' });
   });
 });
 

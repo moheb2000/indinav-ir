@@ -5,6 +5,7 @@ const cors = require('cors');
 const sequelize = require('./models/db');
 const posts = require('./routes/posts');
 const pages = require('./routes/pages');
+const authers = require('./routes/authers');
 
 const _posts = require('./models/test-data.json');
 const _pages = require('./models/test-data-pages.json');
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/assets', express.static(__dirname + '/dist/assets'));
 
+app.use('/api/authers', authers);
 app.use('/api/posts', posts);
 app.use('/api/pages', pages);
 
