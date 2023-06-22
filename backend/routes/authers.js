@@ -8,7 +8,7 @@ const authers = express.Router();
 
 authers.post('/checklogin', (req, res) => {
   try {
-    decoded = jwt.verify(req.body.token, 'hello');
+    const decoded = jwt.verify(req.body.token, 'hello');
     return res.json({ verify: true });
   } catch(err) {
     return res.json({ verify: false });

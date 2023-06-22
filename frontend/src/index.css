@@ -10,3 +10,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.w-md-editor-toolbar {
+  direction: rtl;
+}
+.w-md-editor-text-input,
+.w-md-editor-text-pre,
+.w-md-editor-preview {
+  direction: rtl;
+  text-align: right;
+}

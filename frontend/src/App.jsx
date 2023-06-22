@@ -6,6 +6,7 @@ import StaticPost from "./pages/StaticPost";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import Login from "./pages/Login";
+import AddPost from "./pages/AddPost";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/post/:slug',
         element: <StaticPost />
+      },
+      {
+        path: '/post/add',
+        element: <AddPost />
       },
     ],
   },

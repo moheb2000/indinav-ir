@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { models } = require('../models/db');
+const authenticate = require('../middlewares/authenticate');
 
 const posts = express.Router();
 
@@ -28,10 +29,9 @@ posts.get('/', (req, res) => {
   });
 });
 
-posts.post('/', (req, res) => {
-  const { id, ...body } = req.body;
-
-  models.post.create(body).then(() => {
+posts.post('/', authenticate, (req, res) => {
+  const { id, autherId, ...body } = req.body;
+  models.post.create({ autherId: req.autherId, ...body }).then(() => {
     return res.status(201).send();
   }).catch(err => {
     return res.status(400).json({ error: err.message });
@@ -59,7 +59,7 @@ posts.get('/:slug', (req, res) => {
   });
 });
 
-posts.patch('/:id', (req, res) => {
+posts.patch('/:id', authenticate, (req, res) => {
   const { id, autherId, ...body } = req.body;
 
   models.post.update(body, {
@@ -71,7 +71,7 @@ posts.patch('/:id', (req, res) => {
   });
 });
 
-posts.delete('/:id', (req, res) => {
+posts.delete('/:id', authenticate, (req, res) => {
   models.post.destroy({
     where: {
       id: req.params.id,

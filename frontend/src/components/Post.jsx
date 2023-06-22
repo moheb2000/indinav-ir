@@ -96,7 +96,7 @@ function Post({ post }) {
               </div>
               <div className='mr-1'>مطالعه در {post && readingTime(post.body)} دقیقه</div>
             </div>
-            <div className="prose lg:prose-xl prose-pre:text-left prose-h1:text-purple-600 prose-h2:text-purple-600 prose-h3:text-purple-600 prose-h4:text-purple-600 prose-h5:text-purple-600 prose-h6:text-purple-600">{post && md.render(post.body)}</div>
+            <div className="prose lg:prose-xl prose-pre:text-left prose-h1:text-purple-600 prose-h2:text-purple-600 prose-h3:text-purple-600 prose-h4:text-purple-600 prose-h5:text-purple-600 prose-h6:text-purple-600 max-w-none text-justify">{post && md.render(post.body)}</div>
           </article>
         </div>
       </main>
