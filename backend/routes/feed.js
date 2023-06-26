@@ -16,14 +16,14 @@ feed.get('/', (req, res) => {
     attributes: {exclude: ['autherId']},
   }).then(posts => {
     res.set('Content-Type', 'application/rss+xml');
-    const hostAddress = `${req.protocol}://${req.get('host')}`;
+    const hostAddress = `https://${req.get('host')}`;
     let items = '';
     for (let post of posts) {
       items += `
       <item>
         <title>${post.title}</title>
         <link>${hostAddress}/post/${post.slug}</link>
-        <description>${md.render(post.body.substring(0, 500) + '...')}</description>
+        <description><![CDATA[${md.render(post.body.substring(0, 500) + '...')}]]></description>
         <guid isPermaLink="false">${hostAddress}/post/${post.slug}?id=${post.id}</guid>
         <pubDate>${new Date(post.createdAt).toUTCString()}</pubDate>
       </item>
@@ -38,6 +38,7 @@ feed.get('/', (req, res) => {
       <description>ایندیناویر</description>
       <copyright>تمام مطالب این سایت تحت پروانه CC BY-SA منتشر می شوند.</copyright>
       <language>fa-ir</language>
+      <atom:link href="${hostAddress}/feed.xml" rel="self" type="application/rss+xml" />
       ${items}
     </channel>
     </rss>
