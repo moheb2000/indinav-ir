@@ -30,7 +30,7 @@ function Footer() {
         <div>
           <p className="text-center">{footer}</p>
           <div className="flex justify-center mt-2">
-          <a href="/feed.xml">
+          <a target="_blank" rel="noreferrer" href="/feed.xml">
               <div className="w-6 hover:text-orange-600 transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -40,7 +40,7 @@ function Footer() {
                 </svg>
               </div>
             </a>
-            <a className={mastodon ? "" : "hidden"} href={mastodon}>
+            <a className={mastodon ? "" : "hidden"} target="_blank" rel="noreferrer" href={mastodon}>
               <div className="w-6 mr-2 hover:text-purple-600 transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-mastodon" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -49,7 +49,7 @@ function Footer() {
                 </svg>
               </div>
             </a>
-            <a className={matrix ? "" : "hidden"} href={`https://matrix.to/#/${matrix}`}>
+            <a className={matrix ? "" : "hidden"} target="_blank" rel="noreferrer" href={`https://matrix.to/#/${matrix}`}>
               <div className="w-6 mr-2 hover:text-black transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-matrix" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -61,7 +61,7 @@ function Footer() {
                 </svg>
               </div>
             </a>
-            <a className={xmpp ? "" : "hidden"} href={`xmpp:${xmpp}?message`}>
+            <a className={xmpp ? "" : "hidden"} target="_blank" rel="noreferrer" href={`xmpp:${xmpp}?message`}>
               <div className="w-6 mr-2 hover:text-green-600 transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-message" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -71,7 +71,7 @@ function Footer() {
                 </svg>
               </div>
             </a>
-            <a className={email ? "" : "hidden"} href={`mailto:${email}`}>
+            <a className={email ? "" : "hidden"} target="_blank" rel="noreferrer" href={`mailto:${email}`}>
               <div className="w-6 mr-2 hover:text-red-600 transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-mail" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
