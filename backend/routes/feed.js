@@ -16,14 +16,15 @@ feed.get('/', (req, res) => {
     attributes: {exclude: ['autherId']},
   }).then(posts => {
     res.set('Content-Type', 'application/rss+xml');
+    const hostAddress = `${req.protocol}://${req.get('host')}`;
     let items = '';
     for (let post of posts) {
       items += `
       <item>
         <title>${post.title}</title>
-        <link>https://indinav.ir/post/${post.slug}</link>
+        <link>${hostAddress}/post/${post.slug}</link>
         <description>${md.render(post.body.substring(0, 500) + '...')}</description>
-        <guid isPermaLink="false">https://indinav.ir/post/${post.slug}?id=${post.id}</guid>
+        <guid isPermaLink="false">${hostAddress}/post/${post.slug}?id=${post.id}</guid>
         <pubDate>${new Date(post.createdAt).toUTCString()}</pubDate>
       </item>
       `;
@@ -33,7 +34,7 @@ feed.get('/', (req, res) => {
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
       <title>ایندیناویر</title>
-      <link>https://indinav.ir</link>
+      <link>${hostAddress}</link>
       <description>ایندیناویر</description>
       <copyright>تمام مطالب این سایت تحت پروانه CC BY-SA منتشر می شوند.</copyright>
       <language>fa-ir</language>
