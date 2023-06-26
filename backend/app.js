@@ -8,6 +8,7 @@ const posts = require('./routes/posts');
 const pages = require('./routes/pages');
 const authers = require('./routes/authers');
 const settings = require('./routes/settings');
+const feed = require('./routes/feed');
 
 require('dotenv').config();
 
@@ -24,6 +25,8 @@ app.use('/api/authers', authers);
 app.use('/api/posts', posts);
 app.use('/api/pages', pages);
 app.use('/api/settings', settings);
+
+app.use('/feed.xml', feed);
 
 app.get('/*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

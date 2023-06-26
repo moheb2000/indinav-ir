@@ -30,7 +30,7 @@ function Footer() {
         <div>
           <p className="text-center">{footer}</p>
           <div className="flex justify-center mt-2">
-          <a href="#">
+          <a href="/feed.xml">
               <div className="w-6 hover:text-orange-600 transform hover:scale-125 transition ease-out duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
