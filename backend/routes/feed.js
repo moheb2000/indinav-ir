@@ -1,8 +1,11 @@
 const express = require('express');
+const { Remarkable } = require('remarkable');
 
 const { models } = require('../models/db');
 
 const feed = express.Router();
+
+const md = new Remarkable();
 
 feed.get('/', (req, res) => {
   models.post.findAll({
@@ -19,7 +22,7 @@ feed.get('/', (req, res) => {
       <item>
         <title>${post.title}</title>
         <link>https://indinav.ir/post/${post.slug}</link>
-        <description>${post.body.substring(0, 150) + '...'}</description>
+        <description>${md.render(post.body.substring(0, 500) + '...')}</description>
         <guid isPermaLink="false">https://indinav.ir/post/${post.slug}?id=${post.id}</guid>
         <pubDate>${new Date(post.createdAt).toUTCString()}</pubDate>
       </item>
