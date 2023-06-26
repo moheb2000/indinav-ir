@@ -6,7 +6,8 @@ const { applyExtraSetup } = require('./extra_setup');
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize({
 	dialect: 'sqlite',
-	storage: '/db/db.sqlite',
+	// This need to change to /db for liara deployment
+	storage: './db/db.sqlite',
 });
 
 const modelDefiners = [

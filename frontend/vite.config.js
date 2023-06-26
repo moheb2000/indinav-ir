@@ -8,4 +8,9 @@ export default defineConfig({
     outDir: '../backend/dist',
     emptyOutDir: true,
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000/',
+    },
+  },
 })
