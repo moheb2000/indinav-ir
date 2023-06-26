@@ -10,6 +10,7 @@ import AddPost from "./pages/AddPost";
 import ModifyPost from "./pages/ModifyPost";
 import ModifyPage from "./pages/ModifyPage";
 import AddPage from "./pages/AddPage";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: '/post/add',
         element: <AddPost />
+      },
+      {
+        path: '/settings',
+        element: <Settings />
       },
     ],
   },

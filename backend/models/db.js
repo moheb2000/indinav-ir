@@ -14,6 +14,7 @@ const modelDefiners = [
 	require('./auther.model'),
 	require('./page.model'),
 	require('./post.model'),
+	require('./settings.model'),
 ];
 
 // We define all models according to their files.

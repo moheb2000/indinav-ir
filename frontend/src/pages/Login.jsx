@@ -45,7 +45,7 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <input dir="ltr" className="block bg-gray-300 px-4 py-2 rounded-full text-left focus:outline outline-2 outline-purple-600 w-full" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email} />
           <input dir="ltr" className="mt-6 block bg-gray-300 px-4 py-2 rounded-full text-left focus:outline outline-2 outline-purple-600 w-full" type="password" placeholder="Password" onChange={(p) => setPassword(p.target.value)} value={password} />
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-6 mb-6">
             <button className="block bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-full cursor-pointer hover:bg-white hover:text-purple-600 border-2 border-purple-600 transform hover:scale-125 transition ease-out duration-300" type="submit">{isLoading ? 'لطفا منتظر بمانید...' : 'ورود به حساب کاربری'}</button>
           </div>
           <div className={error === '' ? "hidden" : ""}>
