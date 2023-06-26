@@ -1,8 +1,14 @@
 {
   "platform": "node",
-  "app": "moheb2000",
+  "app": "indinavir",
   "port": 3000,
   "node": {
     "version": "18"
-  }
+  },
+  "disks": [
+    {
+      "name": "disk",
+      "mountTo": "/db"
+    }
+  ]
 }

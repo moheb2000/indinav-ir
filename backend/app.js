@@ -40,7 +40,7 @@ sequelize.sync({
     }
   });
 }).then(() => {
-  app.listen(port, '192.168.188.6', () => {
+  app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
 }).catch(err => {
