@@ -73,6 +73,9 @@ function EditPost({ type, method, slug }) {
       <main className="max-w-5xl w-full px-6 sm:px-16 pt-16 pb-10">
         {redirect ? <Navigate to={'/'} /> : null}
         <div>
+          <div className="flex justify-between items-center font-semibold text-xl border-b-2 border-gray-200 pb-2 mb-6 text-gray-600">
+            <h2>{`${method === 'PATCH' ? "ویرایش" : "ایجاد"} ${type === 'posts' ? "مطلب" : "صفحه"} ${method === 'PATCH' ? postTitle : "جدید"}`}</h2>
+          </div>
           <form>
             <input onChange={(t) => setPostTitle(t.target.value)} className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 mb-4 text-gray-700" type="text" placeholder="عنوان مطلب" value={postTitle} />
             <input onChange={(s) => setPostSlug(s.target.value)} dir="ltr" className="block px-4 py-2 text-2xl rounded focus:outline-none w-full bg-gray-100 text-left mb-1 text-gray-700" type="text" placeholder="slug" value={postSlug} />
