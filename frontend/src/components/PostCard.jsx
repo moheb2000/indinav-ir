@@ -31,7 +31,7 @@ function PostCard({ post }) {
               <path d="M12 15v3"></path>
             </svg>
           </div>
-          <div className='mr-1'>{new persianDate(post.createdAt).format('DD MMMM YYYY')}</div>
+          <div className='mr-1'>{new persianDate(new Date(post.createdAt)).format('DD MMMM YYYY')}</div>
           <div className='w-5 mr-2'>
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-clock" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
